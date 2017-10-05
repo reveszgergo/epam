@@ -12,12 +12,12 @@ public class CarController {
     @RequestMapping("/cars")
     public List<Car> cars(){
 
-        Car car1 = new Car("Ferrari", 20000);
-        Car car2 = new Car("Lamborghini", 15000);
+        //Car car1 = new Car("Ferrari", 20000);
+        //Car car2 = new Car("Lamborghini", 15000);
 
         List<Car> cars = new ArrayList<>();
-        cars.add(car1);
-        cars.add(car2);
+        //cars.add(car1);
+        //cars.add(car2);
 
         return cars;
     }

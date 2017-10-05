@@ -6,6 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class EpamApplication {
@@ -18,15 +24,28 @@ public class EpamApplication {
 
 	@Bean
     public CommandLineRunner demo(CarRespository repository){
+
 	    return (args) -> {
-	        repository.save(new Car("Ferrari", 100000));
-            repository.save(new Car("Renault", 1000));
-            repository.save(new Car("Jaguar", 50000));
+
+            Location loc1 = new Location("London");
+            Location loc2 = new Location("Paris");
+            Location loc3 = new Location("Debrecen");
+
+            User user1 = new User("Pista", "Kiss");
+            User user2 = new User("Géza", "Affleck");
+            User user3 = new User("", "");
+
+            repository.save(new Car("Ferrari", 1000, loc1, user1));
+            repository.save(new Car("Bugatti", 2000, loc2, user2));
+            repository.save(new Car("Toyota", 3000, loc3, user3));
 
             log.info("Cars found with findAll():");
             log.info("-------------------------");
             for(Car car : repository.findAll()){
-                log.info(car.toString());
+                log.info(car.getType());
+                log.info(car.getLocation().getCity());
+                log.info(car.getPrice().toString());
+                log.info(car.getUser().getFirstName());
             }
             log.info("");
 
