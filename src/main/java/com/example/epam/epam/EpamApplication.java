@@ -39,13 +39,17 @@ public class EpamApplication {
             repository.save(new Car("Bugatti", 2000, loc2, user2));
             repository.save(new Car("Toyota", 3000, loc3, user3));
 
-            log.info("Cars found with findAll():");
+            Search search = new Search();
+
+            log.info("Cars found:");
             log.info("-------------------------");
             for(Car car : repository.findAll()){
-                log.info(car.getType());
-                log.info(car.getLocation().getCity());
-                log.info(car.getPrice().toString());
-                log.info(car.getUser().getFirstName());
+                if(search.findByLocation(car, loc1)) {
+                    log.info(car.getType());
+                    log.info(car.getLocation().getCity());
+                    log.info(car.getPrice().toString());
+                    log.info(car.getUser().getFirstName());
+                }
             }
             log.info("");
 
