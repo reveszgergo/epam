@@ -1,25 +1,52 @@
 package com.example.epam.epam;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.lang.invoke.MethodType;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class CarController {
 
-    @RequestMapping("/cars")
-    public List<Car> cars(){
+    @Autowired
+    CarService carService;
 
-        //Car car1 = new Car("Ferrari", 20000);
-        //Car car2 = new Car("Lamborghini", 15000);
+    @RequestMapping(value = "/cars", method = RequestMethod.GET)
+    public List<Car> listAllCars(){
+        List<Car> cars = carService.findAllCars();
 
-        List<Car> cars = new ArrayList<>();
-        //cars.add(car1);
-        //cars.add(car2);
+        if(cars.isEmpty()){
+            return new ArrayList<Car>();
+        }
 
         return cars;
+    }
+
+    @RequestMapping(value = "/cars", method = RequestMethod.POST)
+    public ResponseEntity<?> newCar(@RequestBody Car car, UriComponentsBuilder ucBuilder){
+        carService.saveCar(car);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/cars/{id}").buildAndExpand(car.getId()).toUri());
+        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/cars/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteCar(@PathVariable("id") long id){
+        Car car = carService.findById(id);
+
+        if(car == null)
+            return new ResponseEntity(new CustomError("User with id" + id + "not found."), HttpStatus.NOT_FOUND);
+
+        carService.deleteCarById(id);
+
+        return new ResponseEntity<Car>(HttpStatus.NO_CONTENT);
     }
 
 }

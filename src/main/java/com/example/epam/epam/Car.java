@@ -1,5 +1,7 @@
 package com.example.epam.epam;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,10 +15,12 @@ public class Car {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="location_id")
+    @JsonBackReference
     private Location location;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
+    @JsonBackReference
     private User user;
 
     protected Car() {
@@ -27,6 +31,10 @@ public class Car {
         this.price = price;
         this.location = location;
         this.user = user;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getType() {
