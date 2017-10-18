@@ -9,44 +9,31 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.lang.invoke.MethodType;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
+@RequestMapping("/cars")
 public class CarController {
 
     @Autowired
-    CarService carService;
+    private CarRespository carRespository;
 
-    @RequestMapping(value = "/cars", method = RequestMethod.GET)
-    public List<Car> listAllCars(){
-        List<Car> cars = carService.findAllCars();
-
-        if(cars.isEmpty()){
-            return new ArrayList<Car>();
-        }
-
-        return cars;
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Collection<Car>> getCars(){
+        return new ResponseEntity<>(carRespository.findAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/cars", method = RequestMethod.POST)
-    public ResponseEntity<?> newCar(@RequestBody Car car, UriComponentsBuilder ucBuilder){
-        carService.saveCar(car);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/cars/{id}").buildAndExpand(car.getId()).toUri());
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> addCar(@RequestBody Car car){
+        return new ResponseEntity<>(carRespository.save(car), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/cars/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteCar(@PathVariable("id") long id){
-        Car car = carService.findById(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteCar(@PathVariable long id){
+        carRespository.delete(id);
 
-        if(car == null)
-            return new ResponseEntity(new CustomError("User with id" + id + "not found."), HttpStatus.NOT_FOUND);
-
-        carService.deleteCarById(id);
-
-        return new ResponseEntity<Car>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }
