@@ -1,6 +1,6 @@
 package com.example.epam.epam;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -15,12 +15,12 @@ public class Car {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="location_id")
-    @JsonBackReference
+    @JsonIgnore
     private Location location;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
-    @JsonBackReference
+    @JsonIgnore
     private User user;
 
     protected Car() {
