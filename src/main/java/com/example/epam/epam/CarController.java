@@ -9,6 +9,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/cars")
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class CarController {
 
     @Autowired
@@ -24,9 +25,9 @@ public class CarController {
         return new ResponseEntity<>(carRespository.save(car), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteCar(@PathVariable long id){
-        carRespository.delete(id);
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteCar(@RequestParam("id") String id){
+        carRespository.delete(Long.parseLong(id));
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
