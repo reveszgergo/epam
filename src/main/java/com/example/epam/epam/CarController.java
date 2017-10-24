@@ -1,25 +1,35 @@
 package com.example.epam.epam;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 @RestController
+@RequestMapping("/cars")
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class CarController {
 
-    @RequestMapping("/cars")
-    public List<Car> cars(){
+    @Autowired
+    private CarRespository carRespository;
 
-        //Car car1 = new Car("Ferrari", 20000);
-        //Car car2 = new Car("Lamborghini", 15000);
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Collection<Car>> getCars(){
+        return new ResponseEntity<>(carRespository.findAll(), HttpStatus.OK);
+    }
 
-        List<Car> cars = new ArrayList<>();
-        //cars.add(car1);
-        //cars.add(car2);
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> addCar(@RequestBody Car car){
+        return new ResponseEntity<>(carRespository.save(car), HttpStatus.CREATED);
+    }
 
-        return cars;
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteCar(@RequestParam("id") String id){
+        carRespository.delete(Long.parseLong(id));
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }
