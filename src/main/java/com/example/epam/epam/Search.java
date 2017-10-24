@@ -1,5 +1,8 @@
 package com.example.epam.epam;
 
+import com.example.epam.epam.entity.Car;
+import com.example.epam.epam.entity.Location;
+
 public class Search {
 
     public boolean findByLocation(Car car, Location location){

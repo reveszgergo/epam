@@ -1,5 +1,6 @@
-package com.example.epam.epam;
+package com.example.epam.epam.repository;
 
+import com.example.epam.epam.entity.Car;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

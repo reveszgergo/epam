@@ -1,5 +1,6 @@
-package com.example.epam.epam;
+package com.example.epam.epam.controller;
 
+import com.example.epam.epam.entity.Car;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

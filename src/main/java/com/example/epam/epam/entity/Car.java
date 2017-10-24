@@ -1,4 +1,4 @@
-package com.example.epam.epam;
+package com.example.epam.epam.entity;
 
 import javax.persistence.*;
 

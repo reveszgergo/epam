@@ -1,9 +1,8 @@
-package com.example.epam.epam;
+package com.example.epam.epam.repository;
 
 
+import com.example.epam.epam.entity.Location;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 public interface LocationRepository extends CrudRepository<Location, Long>{
 

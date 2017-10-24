@@ -1,4 +1,6 @@
-package com.example.epam.epam;
+package com.example.epam.epam.entity;
+
+import com.example.epam.epam.entity.Car;
 
 import javax.persistence.*;
 import java.util.Set;
