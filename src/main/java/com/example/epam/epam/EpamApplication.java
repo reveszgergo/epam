@@ -1,9 +1,6 @@
 package com.example.epam.epam;
 
-import com.example.epam.epam.entity.Car;
-import com.example.epam.epam.entity.Location;
-import com.example.epam.epam.entity.User;
-import com.example.epam.epam.repository.CarRespository;
+import com.example.epam.epam.authentication.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

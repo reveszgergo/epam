@@ -1,4 +1,6 @@
-package com.example.epam.epam.entity;
+package com.example.epam.epam;
+
+import com.example.epam.epam.authentication.User;
 
 import javax.persistence.*;
 

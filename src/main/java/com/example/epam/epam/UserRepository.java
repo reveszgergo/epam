@@ -1,9 +1,10 @@
-package com.example.epam.epam.repository;
+package com.example.epam.epam;
 
-import com.example.epam.epam.entity.User;
+import com.example.epam.epam.authentication.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long>{
 
     User findUserByUsername(String username);
+    User findByToken(String token);
 }
