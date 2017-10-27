@@ -3,7 +3,6 @@ package com.example.epam.epam.authentication;
 import com.example.epam.epam.CustomErrorType;
 import com.example.epam.epam.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,12 +20,14 @@ public class AuthenticationController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private UserService userService;
     private UserRepository userRepository;
+    private UserDetailsService userDetailsService;
 
     @Autowired
-    public AuthenticationController(BCryptPasswordEncoder bCryptPasswordEncoder, UserService userService, UserRepository userRepository) {
+    public AuthenticationController(BCryptPasswordEncoder bCryptPasswordEncoder, UserService userService, UserRepository userRepository, UserDetailsService userDetailsService) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userService = userService;
         this.userRepository = userRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -48,9 +49,9 @@ public class AuthenticationController {
         return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ResponseEntity<?> login(){
-        
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity<?> login(@RequestBody String username, String password){
+        return new ResponseEntity<>(userDetailsService.loadUserByUsername(username), HttpStatus.OK);
     }
 
 }
