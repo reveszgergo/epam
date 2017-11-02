@@ -44,13 +44,13 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> login(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password, HttpServletResponse response) throws IOException{
+    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginUser loginUser, HttpServletResponse response) throws IOException{
 
         String token = null;
-        User user = userRepository.findUserByUsername(username);
+        User user = userRepository.findUserByUsername(loginUser.getUsername());
         Map<String, Object> tokenMap = new HashMap<>();
-        if(user != null && bCryptPasswordEncoder.matches(password, user.getPassword())){
-            token = Jwts.builder().setSubject(username).claim("roles", user.getRoles()).setIssuedAt(new Date())
+        if(user != null && bCryptPasswordEncoder.matches(loginUser.getPassword(), user.getPassword())){
+            token = Jwts.builder().setSubject(loginUser.getPassword()).claim("roles", user.getRoles()).setIssuedAt(new Date())
                     .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
             tokenMap.put("token", token);
             tokenMap.put("user", user);
