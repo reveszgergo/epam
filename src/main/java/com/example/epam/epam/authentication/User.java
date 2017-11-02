@@ -2,8 +2,13 @@ package com.example.epam.epam.authentication;
 
 import com.example.epam.epam.Car;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class User {
@@ -14,16 +19,14 @@ public class User {
 
     private String username;
 
-    @org.springframework.data.annotation.Transient
     private String password;
 
     private String firstName;
 
     private String lastName;
 
-    private boolean enabled;
-
-    private String token;
+    @ElementCollection
+    private List<String> roles = new ArrayList<>();
 
     @JsonIgnore
     @OneToOne(mappedBy = "user")
@@ -77,22 +80,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     public Car getCar() {
         return car;
     }
@@ -100,4 +87,26 @@ public class User {
     public void setCar(Car car) {
         this.car = car;
     }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+    @JsonIgnore
+    public boolean isEnabled(){
+        return true;
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        for(String role : roles){
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+        return authorities;
+    }
+
 }
