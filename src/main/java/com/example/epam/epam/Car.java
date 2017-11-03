@@ -19,7 +19,7 @@ public class Car {
     @JoinColumn(name="user_id")
     private User user;
 
-    protected Car() {
+    public Car() {
     }
 
     public Car(String type, Integer price, Location location, User user) {
@@ -27,6 +27,14 @@ public class Car {
         this.price = price;
         this.location = location;
         this.user = user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getType() {
