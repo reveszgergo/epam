@@ -10,6 +10,8 @@ public class Car {
     private Long id;
     private String type;
     private Integer price;
+    private String fromDate;
+    private String untilDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="location_id")
@@ -22,11 +24,21 @@ public class Car {
     protected Car() {
     }
 
-    public Car(String type, Integer price, Location location, User user) {
+    public Car(String type, Integer price, String fromDate, String untilDate, Location location, User user) {
         this.type = type;
         this.price = price;
+        this.fromDate = fromDate;
+        this.untilDate = untilDate;
         this.location = location;
         this.user = user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getType() {
@@ -43,6 +55,22 @@ public class Car {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getUntilDate() {
+        return untilDate;
+    }
+
+    public void setUntilDate(String untilDate) {
+        this.untilDate = untilDate;
     }
 
     public Location getLocation() {

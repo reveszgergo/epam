@@ -35,9 +35,9 @@ public class EpamApplication {
             User user2 = new User("Géza", "Affleck");
             User user3 = new User("", "");
 
-            repository.save(new Car("Ferrari", 1000, loc1, user1));
-            repository.save(new Car("Bugatti", 2000, loc2, user2));
-            repository.save(new Car("Toyota", 3000, loc3, user3));
+            repository.save(new Car("Ferrari", 1000,"2017-11-09", "2017-11-15", loc1, user1));
+            repository.save(new Car("Bugatti", 2000,"2017-11-10", "2017-11-20", loc2, user2));
+            repository.save(new Car("Toyota", 3000, "", "", loc3, user3));
 
             log.info("Cars found:");
             log.info("-------------------------");
