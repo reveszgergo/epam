@@ -77,9 +77,8 @@ public class SearchController {
                     (fromDate.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(car.getFromDate())) > 0 && untilDate.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(car.getUntilDate())) >0)){
                 cars.add(car);
             }
-            return new ResponseEntity<>(cars, HttpStatus.OK);
-
         }
+        return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
 }
