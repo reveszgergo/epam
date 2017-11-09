@@ -37,6 +37,8 @@ public class ReservationController {
         Car completedCar = carRespository.findOne(car.getId());
         completedCar.getUser().setFirstName("");
         completedCar.getUser().setLastName("");
+        completedCar.setFromDate("");
+        completedCar.setUntilDate("");
         carRespository.save(completedCar);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -49,6 +51,19 @@ public class ReservationController {
         changeCar.getLocation().setCity(location);
         carRespository.save(changeCar);
 
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/reserve", method = RequestMethod.POST)
+    public ResponseEntity<Void> reserve(@RequestBody Car car){
+
+        Car reservedCar = carRespository.findOne(car.getId());
+        reservedCar.getUser().setFirstName(car.getUser().getFirstName());
+        reservedCar.getUser().setLastName(car.getUser().getLastName());
+        reservedCar.setFromDate(car.getFromDate());
+        reservedCar.setUntilDate(car.getUntilDate());
+        carRespository.save(reservedCar);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

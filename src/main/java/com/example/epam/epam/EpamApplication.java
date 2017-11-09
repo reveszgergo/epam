@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -35,9 +36,9 @@ public class EpamApplication {
             User user2 = new User("Géza", "Affleck");
             User user3 = new User("", "");
 
-            repository.save(new Car("Ferrari", 1000, loc1, user1));
-            repository.save(new Car("Bugatti", 2000, loc2, user2));
-            repository.save(new Car("Toyota", 3000, loc3, user3));
+            repository.save(new Car("Ferrari", 1000, "", "", loc1, user1));
+            repository.save(new Car("Bugatti", 2000, "", "",  loc2, user2));
+            repository.save(new Car("Toyota", 3000, "", "", loc3, user3));
 
             Search search = new Search();
 
