@@ -42,28 +42,12 @@ public class SearchControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private HttpMessageConverter mappingJackson2HttpMessageConverter;
-
-    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-            MediaType.APPLICATION_JSON.getSubtype(),
-            Charset.forName("utf8"));
-
     @MockBean
     private CarRespository carRespository;
 
     private Car car1;
     private Car car2;
     private List<Car> cars;
-
-    @Autowired
-    void setConverters(HttpMessageConverter<?>[] converters){
-        mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream()
-                .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
-                .findAny()
-                .orElse(null);
-
-        assertNotNull("the JSON message converter must not be null", mappingJackson2HttpMessageConverter);
-    }
 
     @Before
     public void prepare(){
