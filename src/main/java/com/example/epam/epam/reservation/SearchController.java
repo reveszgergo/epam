@@ -8,9 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +16,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/search")
 public class SearchController {
+
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     @Autowired
     private CarRespository carRespository;
@@ -73,8 +73,8 @@ public class SearchController {
     public ResponseEntity<List<Car>> filterByTime(@RequestParam(value = "from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromDate, @RequestParam(value = "until") @DateTimeFormat(pattern = "yyyy-MM-dd") Date untilDate) throws Exception{
         List<Car> cars = new ArrayList<>();
         for(Car car : carRespository.findAll()){
-            if((fromDate.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(car.getFromDate())) < 0 && untilDate.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(car.getUntilDate())) < 0) ||
-                    (fromDate.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(car.getFromDate())) > 0 && untilDate.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(car.getUntilDate())) >0)){
+            if((fromDate.compareTo(new SimpleDateFormat(DATE_FORMAT).parse(car.getFromDate())) < 0 && untilDate.compareTo(new SimpleDateFormat(DATE_FORMAT).parse(car.getUntilDate())) < 0) ||
+                    (fromDate.compareTo(new SimpleDateFormat(DATE_FORMAT).parse(car.getFromDate())) > 0 && untilDate.compareTo(new SimpleDateFormat(DATE_FORMAT).parse(car.getUntilDate())) >0)){
                 cars.add(car);
             }
         }
