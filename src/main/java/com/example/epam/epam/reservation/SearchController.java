@@ -18,6 +18,7 @@ import java.util.List;
 public class SearchController {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DEFAULT_DATE = "2000-01-01";
 
     @Autowired
     private CarRespository carRespository;

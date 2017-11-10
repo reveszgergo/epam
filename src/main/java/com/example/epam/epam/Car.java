@@ -21,7 +21,7 @@ public class Car {
     @JoinColumn(name="user_id")
     private User user;
 
-    protected Car() {
+    public Car() {
     }
 
     public Car(String type, Integer price, String fromDate, String untilDate, Location location, User user) {
