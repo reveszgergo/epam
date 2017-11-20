@@ -1,5 +1,7 @@
 package com.example.epam.epam;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,6 +13,7 @@ public class Location {
     private Long id;
     private String city;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "location")
     private Set<Car> cars;
 

@@ -1,5 +1,7 @@
 package com.example.epam.epam;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class User {
     private String firstName;
     private String lastName;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Car car;
 
